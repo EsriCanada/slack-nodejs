@@ -1,0 +1,25 @@
+{
+  "name": "slack-heroku",
+  "version": "0.1.0",
+  "description": "A Node.js app for running a Slack service",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "request": "^2.53.0"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amarinelli/slack-heroku"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "slack"
+  ],
+  "license": "MIT"
+}

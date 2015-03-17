@@ -22,8 +22,6 @@ http.createServer(function (req, res) {
       form: userString},
       function(err,httpResponse,body){
         console.log(err);
-      });
-
-    req.end();    
+      });   
 
 }).listen(process.env.PORT, process.env.IP);

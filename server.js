@@ -33,12 +33,12 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
-app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.set('port', (process.env.PORT || 5000));
 
 app.post('/', function(req, res) {
-  res.send('Hello World!');
   console.log(req.body);
+  res.send('Hello World!');
 });
 
 app.listen(app.get('port'), function() {

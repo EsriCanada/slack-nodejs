@@ -24,4 +24,6 @@ http.createServer(function (req, res) {
         console.log(err);
       });
 
+    req.end();    
+
 }).listen(process.env.PORT, process.env.IP);

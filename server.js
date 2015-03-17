@@ -7,6 +7,8 @@ http.createServer(function (req, res) {
     var baseUrl = "http://home.esricanada.com/report/SCMCase.asp";
     var caseNumb = queryObject.text;
     var channel = queryObject.channel_name;
+    console.log('CASE NUMBER:' + caseNumb);
+    console.log('CHANNEL:' + channel);
     var returnUrl = baseUrl + "?Case_No=" + caseNumb;
     var caseUrl = "<" + returnUrl + "|Case#" + caseNumb + ">"
     var payload = {

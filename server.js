@@ -12,7 +12,7 @@ var baseUrl = "http://home.esricanada.com/report/SCMCase.asp";
 
 app.post('/', function(req, res) {
   console.log(req.body);
-  console.log("Initiated by: " + req.body.user);
+  console.log("Initiated by: " + req.body.user_name);
 
   var number = req.body.text;
   var channel = req.body.channel_id;

@@ -15,8 +15,8 @@ app.post('/', function(req, res) {
 
   var number = req.body.text;
   var channel = req.body.channel_name;
-  var returnUrl = baseUrl + "?Case_No=" + caseNumb;
-  var caseUrl = "<" + returnUrl + "|Case#" + caseNumb + ">"
+  var returnUrl = baseUrl + "?Case_No=" + number;
+  var caseUrl = "<" + returnUrl + "|Case#" + number + ">"
 
   var payload = {
       text: caseUrl,

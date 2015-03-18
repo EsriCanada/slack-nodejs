@@ -12,9 +12,10 @@ var baseUrl = "http://home.esricanada.com/report/SCMCase.asp";
 
 app.post('/', function(req, res) {
   console.log(req.body);
+  console.log("Initiated by: " + req.body.user);
 
   var number = req.body.text;
-  var channel = req.body.channel_name;
+  var channel = req.body.channel_id;
   var returnUrl = baseUrl + "?Case_No=" + number;
   var caseUrl = "<" + returnUrl + "|Case#" + number + ">"
 

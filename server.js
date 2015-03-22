@@ -91,10 +91,11 @@ app.post('/bug', function(req, res) {
 
       slackWrite(hook, payload);
     });
-  }
+  }  
+});
 
-  var slackWrite = function(hook, payload){
-    var userString = JSON.stringify(payload);
+var slackWrite = function(hook, payload){
+	var userString = JSON.stringify(payload);
     request.post({
         url: hook,
         form: userString},
@@ -102,9 +103,8 @@ app.post('/bug', function(req, res) {
         console.log(err);
       });
 
-      res.end();
-  }
-});
+	res.end();
+}
 
 app.listen(app.get('port'), function() {
   console.log("Node.js app is running at localhost:" + app.get('port'));

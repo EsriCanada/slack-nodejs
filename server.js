@@ -37,7 +37,7 @@ app.post('/bug', function(req, res) {
   hook = "https://hooks.slack.com/services/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"
   var channel = req.body.channel_id;
 
-  var searchTerm = 'error';
+  var searchTerm = req.body.text;
   var url = 'http://search.esri.com/results/index.cfm?do=support&searchview=all&filterid=2&requiredfields=(search-category:bugs/nimbus)&filter=p&q=' + searchTerm;
 
   request(url, function(err, resp, body){

@@ -23,8 +23,8 @@ app.post('/case', function(req, res) {
   var caseUrl = "<" + returnUrl + "|Case#" + number + ">"
 
   var payload = {
-      text: caseUrl,
-      channel : channel
+    text: caseUrl,
+    channel : channel
   };
 
   slackWrite(hook, payload);
@@ -43,10 +43,7 @@ app.post('/bug', function(req, res) {
   request(url, function(err, resp, body){
     $ = cheerio.load(body);
     var link = $('a[class=searchTitle]')[0].attribs.href;
-
     getDetails(link);
-
-    res.end();
   });
 
   var getDetails = function(link){
@@ -91,19 +88,20 @@ app.post('/bug', function(req, res) {
 
       slackWrite(hook, payload);
     });
-  }  
+  }
+  res.end();
 });
 
 var slackWrite = function(hook, payload){
 	var userString = JSON.stringify(payload);
-    request.post({
+    request.post(
+      {
         url: hook,
-        form: userString},
+        form: userString
+      },
       function(err, httpResponse, body){
         console.log(err);
-      });
-
-	res.end();
+  });
 }
 
 app.listen(app.get('port'), function() {

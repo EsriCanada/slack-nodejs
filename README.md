@@ -10,9 +10,12 @@ A simple Node.js web server to process customizations in [Slack](https://slack.c
 #### 1. Case-Summary
 - Post a hyperlink to an Esri Canada Case Summary
 - Example command `/case 142982`
-- ![case-summary](images/case-summary.png)
+  ![case-summary](images/case-summary.png)
 
 #### 2. Esri Support
 - Post a hyperlink and formatted summary of an Esri Inc. BUG, NIM, or ENH
 - Example command:  `/bugs NIM079126`
-- ![case-summary](images/esri-support.png)
+  ![case-summary](images/esri-support.png)
+
+## Known Limitations and Contributing
+- See the [Issues](https://github.com/EsriCanada/slack-nodejs/issues) page

@@ -1,7 +1,7 @@
 {
   "name": "Slack Node.js Service",
   "description": "A Node.js service to process Slack customizations",
-  "repository": "https://github.com/amarinelli/slack-heroku",
-  "logo": "slack_logo.png",
-  "keywords": ["node", "heroku", "slack"]
+  "repository": "https://github.com/EsriCanada/slack-nodejs",
+  "logo": "images/slack_logo.png",
+  "keywords": ["node", "slack"]
 }

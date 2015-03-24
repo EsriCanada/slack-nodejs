@@ -13,10 +13,10 @@ app.get('/', function (req, res) {
 });
 
 app.post('/case', function(req, res) {
-  console.log("Case, initiated by: " + req.body.user_name);
-  hook = "https://hooks.slack.com/services/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"
-  var channel = req.body.channel_id;
+  console.log("CASE, initiated by: " + req.body.user_name);
 
+  var hook = "https://hooks.slack.com/services/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"
+  var channel = req.body.channel_id;
   var baseUrl = "http://home.esricanada.com/report/SCMCase.asp";
   var number = req.body.text;
   var returnUrl = baseUrl + "?Case_No=" + number;
@@ -32,11 +32,11 @@ app.post('/case', function(req, res) {
   res.end();
 });
 
-app.post('/bug', function(req, res) {
-  console.log("Bug, initiated by: " + req.body.user_name);
-  hook = "https://hooks.slack.com/services/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"
-  var channel = req.body.channel_id;
+app.post('/bugs', function(req, res) {
+  console.log("BUG, initiated by: " + req.body.user_name);
 
+  var hook = "https://hooks.slack.com/services/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"
+  var channel = req.body.channel_id;
   var searchTerm = req.body.text;
   var url = 'http://search.esri.com/results/index.cfm?do=support&searchview=all&filterid=2&requiredfields=(search-category:bugs/nimbus)&filter=p&q=' + searchTerm;
 
@@ -57,8 +57,6 @@ app.post('/bug', function(req, res) {
       var versionFound = table[4].children[0].data.trim();
       var status = table[10].children[0].data.trim();
       var versionFixed = table[11].children[0].data.trim();
-
-      console.log(channel);
 
       var payload = {
         "attachments": [
@@ -85,7 +83,6 @@ app.post('/bug', function(req, res) {
         ],
           channel : channel
       };
-
       slackWrite(hook, payload);
     });
   }

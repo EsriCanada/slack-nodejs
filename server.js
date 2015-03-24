@@ -9,27 +9,34 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.set('port', (process.env.PORT || 5000));
 
 app.get('/', function (req, res) {
-  res.send('Node,js webserver for Slack integration')
+  res.send('Node.js webserver for Slack integration')
 });
 
 app.post('/case', function(req, res) {
   console.log("CASE, initiated by: " + req.body.user_name);
 
-  var hook = "https://hooks.slack.com/services/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"
-  var channel = req.body.channel_id;
-  var baseUrl = "http://home.esricanada.com/report/SCMCase.asp";
   var number = req.body.text;
-  var returnUrl = baseUrl + "?Case_No=" + number;
-  var caseUrl = "<" + returnUrl + "|Case#" + number + ">"
-
-  var payload = {
-    text: caseUrl,
-    channel : channel
+  if (number.length <= 6 && !isNaN(parseFloat(number)) && isFinite(number)) {
+    sendUrl();
+  } else {
+    console.log("Invalid Case number");
+    res.send(number + " - is an invalid Case number");
   };
 
-  slackWrite(hook, payload);
+  function sendUrl() {
+    var hook = "https://hooks.slack.com/services/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"
+    var channel = req.body.channel_id;
+    var baseUrl = "http://home.esricanada.com/report/SCMCase.asp";
+    var returnUrl = baseUrl + "?Case_No=" + number;
+    var caseUrl = "<" + returnUrl + "|Case#" + number + ">"
 
-  res.end();
+    var payload = {
+      text: caseUrl,
+      channel : channel
+    };
+    slackWrite(hook, payload);
+    res.send("Case URL formed");
+  };
 });
 
 app.post('/bugs', function(req, res) {
@@ -40,14 +47,22 @@ app.post('/bugs', function(req, res) {
   var searchTerm = req.body.text;
   var url = 'http://search.esri.com/results/index.cfm?do=support&searchview=all&filterid=2&requiredfields=(search-category:bugs/nimbus)&filter=p&q=' + searchTerm;
 
-  request(url, function(err, resp, body){
+  // Get first search result, if any
+  request(url, function(err, resp, body) {
     $ = cheerio.load(body);
-    var link = $('a[class=searchTitle]')[0].attribs.href;
-    getDetails(link);
+    try {
+      var link = $('a[class=searchTitle]')[0].attribs.href;
+      getDetails(link);
+      res.send("Bug found");
+    } catch(error) {
+      console.log("No results found");
+      res.send(searchTerm + " - did not match any results");
+    }
   });
 
-  var getDetails = function(link){
-    request(link, function(err, resp, body){
+  // Follow link of first result to get bug details
+  function getDetails(link) {
+    request(link, function(err, resp, body) {
       $ = cheerio.load(body);
       var synop = $('div[class="col pct60"]').children();
       var synopsis = synop[1].children[0].data.trim();
@@ -86,18 +101,21 @@ app.post('/bugs', function(req, res) {
       slackWrite(hook, payload);
     });
   }
-  res.end();
 });
 
-var slackWrite = function(hook, payload){
+function slackWrite(hook, payload) {
 	var userString = JSON.stringify(payload);
     request.post(
       {
         url: hook,
         form: userString
       },
-      function(err, httpResponse, body){
-        console.log(err);
+      function(err, httpResponse, body) {
+        if (!err) {
+          console.log("Posted to Slack");
+        } else {
+          console.log("Error posting to Slack: " + err);
+        }
   });
 }
 

@@ -35,7 +35,7 @@ app.post('/case', function(req, res) {
       channel : channel
     };
     slackWrite(hook, payload);
-    res.send("Case URL formed");
+    res.end();
   };
 });
 
@@ -53,7 +53,7 @@ app.post('/bugs', function(req, res) {
     try {
       var link = $('a[class=searchTitle]')[0].attribs.href;
       getDetails(link);
-      res.send("Bug found");
+      res.end();
     } catch(error) {
       console.log("No results found");
       res.send(searchTerm + " - did not match any results");

@@ -7,7 +7,7 @@ A simple Node.js web server to process customizations in [Slack](https://slack.c
 
 ## Current Commands
 
-#### 1. Case-Summary
+#### 1. ~~Case-Summary~~ *(no longer supported)*
 - Post a hyperlink to an Esri Canada Case Summary
 - Example command `/case 142982`
 
